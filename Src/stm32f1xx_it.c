@@ -36,10 +36,11 @@
 #include "stm32f1xx_it.h"
 
 /* USER CODE BEGIN 0 */
-
+#include "main.h"
 /* USER CODE END 0 */
 
 /* External variables --------------------------------------------------------*/
+extern TIM_HandleTypeDef htim3;
 extern UART_HandleTypeDef huart4;
 extern UART_HandleTypeDef huart3;
 
@@ -184,6 +185,34 @@ void SysTick_Handler(void)
 /* For the available peripheral interrupt handler names,                      */
 /* please refer to the startup file (startup_stm32f1xx.s).                    */
 /******************************************************************************/
+
+/**
+* @brief This function handles TIM3 global interrupt.
+*/
+void TIM3_IRQHandler(void)
+{
+  /* USER CODE BEGIN TIM3_IRQn 0 */
+	cnt++;
+		if(cnt<=1){
+			LED_CLK_set;
+		}
+		if(cnt>1&&cnt<=2){
+			LED_CLK_reset;
+		}
+		if(cnt>2)cnt = 0;
+	
+	if(timecount<=100){
+		timecount++;
+	}
+	else{
+		timecount = 0;
+	}
+  /* USER CODE END TIM3_IRQn 0 */
+  HAL_TIM_IRQHandler(&htim3);
+  /* USER CODE BEGIN TIM3_IRQn 1 */
+
+  /* USER CODE END TIM3_IRQn 1 */
+}
 
 /**
 * @brief This function handles USART3 global interrupt.
