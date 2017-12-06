@@ -58,7 +58,9 @@
 
 extern volatile unsigned int timecount;
 extern volatile unsigned int cnt;
-
+extern volatile char flag;
+extern volatile char buttonstring[];
+extern volatile unsigned int i;
 
 #define R_red				100
 #define G_red				0
@@ -84,15 +86,16 @@ extern volatile unsigned int cnt;
 #define G_aquamarin	80
 #define B_aquamarin	100
 
-#define R_magenta 	0
-#define G_magenta 	0
+#define R_magenta 	100
+#define G_magenta 	100
 #define B_magenta		100
 
 #define R_violett		100
 #define G_violett		0
 #define B_violett		10
 
-#define LED_CLEAR							HAL_GPIO_WritePin(GPIOB, GPIO_PIN_6, GPIO_PIN_RESET);
+#define LED_CLEAR_set					HAL_GPIO_WritePin(GPIOB, GPIO_PIN_6, GPIO_PIN_SET);
+#define LED_CLEAR_reset				HAL_GPIO_WritePin(GPIOB, GPIO_PIN_6, GPIO_PIN_RESET);
 #define LED_CLK_set						HAL_GPIO_WritePin(GPIOB, GPIO_PIN_7, GPIO_PIN_SET);
 #define LED_CLK_reset					HAL_GPIO_WritePin(GPIOB, GPIO_PIN_7, GPIO_PIN_RESET);
 
@@ -158,49 +161,57 @@ extern volatile unsigned int cnt;
 #define LED_B_magenta_reset 	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_15, GPIO_PIN_RESET);
 #define LED_B_violett_reset 	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_12, GPIO_PIN_RESET);
 
-#define button_left       1
-#define button_right			2
-#define button_up					3
-#define button_down				4
-#define button_undo				5
-#define button_redo				6
-#define button_full				7
-#define button_clbw				8
-#define button_hue				9
-#define button_sat				10
-#define button_lum				11
-#define button_1					12
-#define button_2					13
-#define button_3					14
-#define button_4					15
-#define button_5					16
-#define button_copy				17
-#define button_paste			18
-#define button_fn					19
-#define button_pick				20
-#define button_zoom				21
-#define button_beforeafter	22
-#define button_dev					23
+#define SHIFT_CLK_set 				HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET);
+#define SHIFT_CLK_reset 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);
 
-#define button_rot				24
-#define button_orange			25
-#define button_gelb				26
-#define button_gruen			27
-#define button_aquamarin	28
-#define button_blau				29
-#define button_violett		30
-#define button_magenta		31
-#define button_contrast		32
-#define button_shadow			33
-#define button_black			34
-#define button_white			35
-#define button_clarity		36
-#define button_dynamic		37
-#define button_wbprog			38
-#define button_incsat				39
-#define button_exposure		40
-#define button_lights			41
-#define button_crop				42
+#define SHIFT_DATA 						HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_6);
+
+#define SHIFT_ENABLE 					HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_SET);
+#define SHIFT_DISABLE 				HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_RESET);
+
+#define BUTTON_LEFT       	1
+#define BUTTON_RIGHT				2
+#define BUTTON_UP						3
+#define BUTTON_DOWN					4
+#define BUTTON_UNDO					5
+#define BUTTON_REDO					6
+#define BUTTON_FULL					7
+#define BUTTON_COLOR_BW			8
+#define BUTTON_SEL_HUE			9
+#define BUTTON_SEL_SAT			10
+#define BUTTON_SEL_LUM			11
+#define BUTTON_STAR_1				12
+#define BUTTON_STAR_2				13
+#define BUTTON_STAR_3				14
+#define BUTTON_STAR_4				15
+#define BUTTON_STAR_5				16
+#define BUTTON_COPY					43
+#define BUTTON_PASTE				18
+#define BUTTON_FN						19
+#define BUTTON_PICK					20
+#define BUTTON_ZOOM					21
+#define BUTTON_BEFOREAFTER	22
+#define BUTTON_DEVELOP			23
+
+#define BUTTON_RED				24
+#define BUTTON_ORANGE			25
+#define BUTTON_YELLOW			26
+#define BUTTON_GREEN			27
+#define BUTTON_AQUA				28
+#define BUTTON_BLUE				29
+#define BUTTON_PURPLE			30
+#define BUTTON_MAGENTA		28
+#define BUTTON_CONTRAST		32
+#define BUTTON_SHADOW			33
+#define BUTTON_BLACK			34
+#define BUTTON_WHITE			35
+#define BUTTON_CLARITY		36
+#define BUTTON_DYNAMIC		37
+#define BUTTON_PROG				38
+#define BUTTON_ENCSAT			39
+#define BUTTON_EXPOSURE		40
+#define BUTTON_LIGHTS			41
+#define BUTTON_CROP				42
 
 
 /* USER CODE END Private defines */

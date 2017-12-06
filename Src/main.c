@@ -42,22 +42,27 @@
 
 /* USER CODE BEGIN Includes */
 #include "string.h"
+#include "stdbool.h"
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
 TIM_HandleTypeDef htim3;
+TIM_HandleTypeDef htim6;
 
 UART_HandleTypeDef huart4;
 UART_HandleTypeDef huart3;
 
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
-char* buffertx = "Hallo\n";
+char* buffertx = "Aa05\n";
 char* bufferrx = "halloo\n";
 char  string[8];
+volatile char  buttonstring[48];
 volatile unsigned int timecount;
 volatile unsigned int cnt;
 unsigned int testcount = 0;
+volatile unsigned int i;
+volatile char flag;
 
 /* USER CODE END PV */
 
@@ -66,6 +71,7 @@ void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_UART4_Init(void);
 static void MX_USART3_UART_Init(void);
+static void MX_TIM6_Init(void);
 static void MX_TIM3_Init(void);
 
 /* USER CODE BEGIN PFP */
@@ -93,9 +99,9 @@ void ledpwm(void){//evt Division entfernen --> weniger Rechenaufwand
 	if((timecount<=G_blue)&&(G_blue!=0)){LED_G_blue_set;}else{LED_G_blue_reset;}
 	if((timecount<=B_blue)&&(B_blue!=0)){LED_B_blue_set;}else{LED_B_blue_reset;}
 	
-	/*if((timecount<=R_magenta)&&(R_magenta!=0)){LED_R_magenta_set;}else{LED_R_magenta_reset;}
-	if((timecount<=G_magenta)&&(G_magenta!=0)){LED_G_magenta_set;}else{LED_G_magenta_reset;}
-	if((timecount<=B_magenta)&&(B_magenta!=0)){LED_B_magenta_set;}else{LED_B_magenta_reset;}*/
+	if((timecount<=R_magenta)&&(R_magenta!=0)){LED_R_magenta_set;}else{LED_R_magenta_reset;}
+//	if((timecount<=G_magenta)&&(G_magenta!=0)){LED_G_magenta_set;}else{LED_G_magenta_reset;}
+//	if((timecount<=B_magenta)&&(B_magenta!=0)){LED_B_magenta_set;}else{LED_B_magenta_reset;}//Fehler wenn dieser Pin HIGH ist. Interrupt funktioniert nicht mehr!
 	
 	if((timecount<=R_red)&&(R_red!=0)){LED_R_red_set;}else{LED_R_red_reset;}
 	if((timecount<=G_red)&&(G_red!=0)){LED_G_red_set;}else{LED_G_red_reset;}
@@ -114,50 +120,50 @@ void ledtest(void){
 	
 	testcount++;
 	for(unsigned int i=0; i<400000; i++){
-			LED_R_red_set 				
-			LED_R_orange_set 		
-			LED_R_yellow_set 		
-			LED_R_green_set 		
-			LED_R_blue_set		  
-			LED_R_aquamarin_set 
-			LED_R_magenta_set 	
-			LED_R_violett_set 
+			LED_R_red_set; 				
+			LED_R_orange_set; 		
+			LED_R_yellow_set;		
+			LED_R_green_set;	
+			LED_R_blue_set;	  
+			LED_R_aquamarin_set; 
+			LED_R_magenta_set; 	
+			LED_R_violett_set;
 			LED_W_down_set;
 	}
 	
 	for(unsigned int i=0; i<400000; i++){
-			LED_G_red_set 				
-			LED_G_orange_set 		
-			LED_G_yellow_set 		
-			LED_G_green_set 		
-			LED_G_blue_set		  
-			LED_G_aquamarin_set 
-			LED_G_magenta_set 	
-			LED_G_violett_set 	
+			LED_G_red_set;				
+			LED_G_orange_set; 		
+			LED_G_yellow_set;		
+			LED_G_green_set;	
+			LED_G_blue_set;	  
+			LED_G_aquamarin_set; 
+			LED_G_magenta_set; 	
+			LED_G_violett_set; 	
 			LED_W_middle_set;
 	}
 	
 	for(unsigned int i=0; i<400000; i++){
-			LED_B_red_set 				
-			LED_B_orange_set 		
-			LED_B_yellow_set 		
-			LED_B_green_set 		
-			LED_B_blue_set		  
-			LED_B_aquamarin_set 
-			LED_B_magenta_set 	
-			LED_B_violett_set 
+			LED_B_red_set; 				
+			LED_B_orange_set; 		
+			LED_B_yellow_set;	
+			LED_B_green_set;	
+			LED_B_blue_set;	  
+			LED_B_aquamarin_set; 
+			LED_B_magenta_set;
+			LED_B_violett_set;
 			LED_W_up_set;
 	}
-	LED_CLEAR;
-	
+	LED_CLEAR_reset;
 }
+
 /* USER CODE END 0 */
 
 int main(void)
 {
 
   /* USER CODE BEGIN 1 */
-
+	
   /* USER CODE END 1 */
 
   /* MCU Configuration----------------------------------------------------------*/
@@ -166,7 +172,7 @@ int main(void)
   HAL_Init();
 
   /* USER CODE BEGIN Init */
-	LED_CLEAR;
+	
   /* USER CODE END Init */
 
   /* Configure the system clock */
@@ -180,39 +186,41 @@ int main(void)
   MX_GPIO_Init();
   MX_UART4_Init();
   MX_USART3_UART_Init();
+  MX_TIM6_Init();
   MX_TIM3_Init();
 
   /* USER CODE BEGIN 2 */
 	__HAL_UART_ENABLE_IT(&huart4, UART_IT_TC);
 	__HAL_UART_ENABLE_IT(&huart4, UART_IT_RXNE);
 	HAL_TIM_Base_Start_IT(&htim3);
+	HAL_TIM_Base_Start_IT(&htim6);
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-		
+		LED_CLEAR_set;
 		ledpwm();
+		//readstring();
+		
+		if(buttonstring[BUTTON_COPY]){
+			LED_W_middle_set;
+		}
+		else{
+			LED_W_middle_reset;
+		}
+		
+		if(buttonstring[BUTTON_MAGENTA]){
+			LED_W_up_reset;
+		}
+		else{
+			LED_W_up_set;
+		}
+	//	if((timecount<=B_magenta)&&(B_magenta!=0)){LED_B_magenta_set;}else{LED_B_magenta_reset;}
 		//ledtest();
 		//HAL_GPIO_WritePin(GPIOB, GPIO_PIN_6, GPIO_PIN_RESET);
-	/*	LED_R_red_set;
-		LED_G_red_reset;
-		LED_B_red_reset;
-		
-		LED_R_green_reset;
-		LED_G_green_set;
-		LED_B_green_reset;
-		
-		LED_R_blue_reset;
-		LED_G_blue_reset;
-		LED_B_blue_set;
-		
-		LED_R_violett_set;
-		LED_G_violett_reset;
-		LED_B_violett_set;*/
 	
-		
 		
 		HAL_UART_Transmit_IT(&huart4, (uint8_t *)buffertx, 8);
 		HAL_UART_Receive_IT(&huart4, (uint8_t *)bufferrx, 8);
@@ -305,6 +313,31 @@ static void MX_TIM3_Init(void)
 
 }
 
+/* TIM6 init function */
+static void MX_TIM6_Init(void)
+{
+
+  TIM_MasterConfigTypeDef sMasterConfig;
+
+  htim6.Instance = TIM6;
+  htim6.Init.Prescaler = 23;
+  htim6.Init.CounterMode = TIM_COUNTERMODE_UP;
+  htim6.Init.Period = 49;
+  htim6.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+  if (HAL_TIM_Base_Init(&htim6) != HAL_OK)
+  {
+    _Error_Handler(__FILE__, __LINE__);
+  }
+
+  sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
+  sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
+  if (HAL_TIMEx_MasterConfigSynchronization(&htim6, &sMasterConfig) != HAL_OK)
+  {
+    _Error_Handler(__FILE__, __LINE__);
+  }
+
+}
+
 /* UART4 init function */
 static void MX_UART4_Init(void)
 {
@@ -369,12 +402,12 @@ static void MX_GPIO_Init(void)
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0|GPIO_PIN_1|GPIO_PIN_2|GPIO_PIN_3 
-                          |GPIO_PIN_7|GPIO_PIN_8|GPIO_PIN_9|GPIO_PIN_10 
-                          |GPIO_PIN_11|GPIO_PIN_12, GPIO_PIN_RESET);
+                          |GPIO_PIN_4|GPIO_PIN_5|GPIO_PIN_7|GPIO_PIN_8 
+                          |GPIO_PIN_9|GPIO_PIN_10|GPIO_PIN_11|GPIO_PIN_12, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0|GPIO_PIN_1|GPIO_PIN_13|GPIO_PIN_14 
-                          |GPIO_PIN_15|GPIO_PIN_7, GPIO_PIN_RESET);
+                          |GPIO_PIN_15|GPIO_PIN_6|GPIO_PIN_7, GPIO_PIN_RESET);
 
   /*Configure GPIO pins : PC13 PC14 PC15 PC0 
                            PC1 PC2 PC3 PC4 
@@ -389,26 +422,27 @@ static void MX_GPIO_Init(void)
   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
   /*Configure GPIO pins : PA0 PA1 PA2 PA3 
-                           PA7 PA8 PA9 PA10 
-                           PA11 PA12 */
+                           PA4 PA5 PA7 PA8 
+                           PA9 PA10 PA11 PA12 */
   GPIO_InitStruct.Pin = GPIO_PIN_0|GPIO_PIN_1|GPIO_PIN_2|GPIO_PIN_3 
-                          |GPIO_PIN_7|GPIO_PIN_8|GPIO_PIN_9|GPIO_PIN_10 
-                          |GPIO_PIN_11|GPIO_PIN_12;
+                          |GPIO_PIN_4|GPIO_PIN_5|GPIO_PIN_7|GPIO_PIN_8 
+                          |GPIO_PIN_9|GPIO_PIN_10|GPIO_PIN_11|GPIO_PIN_12;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
+  /*Configure GPIO pin : PA6 */
+  GPIO_InitStruct.Pin = GPIO_PIN_6;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
   /*Configure GPIO pins : PB0 PB1 PB13 PB14 
-                           PB15 PB7 */
+                           PB15 PB6 PB7 */
   GPIO_InitStruct.Pin = GPIO_PIN_0|GPIO_PIN_1|GPIO_PIN_13|GPIO_PIN_14 
-                          |GPIO_PIN_15|GPIO_PIN_7;
+                          |GPIO_PIN_15|GPIO_PIN_6|GPIO_PIN_7;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
-
-  /*Configure GPIO pin : PB6 */
-  GPIO_InitStruct.Pin = GPIO_PIN_6;
-  GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
 }

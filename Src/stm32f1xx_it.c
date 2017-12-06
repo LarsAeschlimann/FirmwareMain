@@ -37,10 +37,12 @@
 
 /* USER CODE BEGIN 0 */
 #include "main.h"
+#include "stdbool.h"
 /* USER CODE END 0 */
 
 /* External variables --------------------------------------------------------*/
 extern TIM_HandleTypeDef htim3;
+extern TIM_HandleTypeDef htim6;
 extern UART_HandleTypeDef huart4;
 extern UART_HandleTypeDef huart3;
 
@@ -192,21 +194,25 @@ void SysTick_Handler(void)
 void TIM3_IRQHandler(void)
 {
   /* USER CODE BEGIN TIM3_IRQn 0 */
-	cnt++;
-		if(cnt<=1){
-			LED_CLK_set;
-		}
-		if(cnt>1&&cnt<=2){
-			LED_CLK_reset;
-		}
-		if(cnt>2)cnt = 0;
 	
-	if(timecount<=100){
-		timecount++;
-	}
-	else{
-		timecount = 0;
-	}
+		
+		SHIFT_ENABLE;
+		if(flag){
+		i++;
+		SHIFT_CLK_set;	
+		buttonstring[i] = SHIFT_DATA;
+			flag=0;
+		}
+		else
+		{
+		SHIFT_CLK_reset;
+			flag=1;
+		}
+		if(i>48){
+			i = 0;
+			SHIFT_DISABLE;
+		}
+	
   /* USER CODE END TIM3_IRQn 0 */
   HAL_TIM_IRQHandler(&htim3);
   /* USER CODE BEGIN TIM3_IRQn 1 */
@@ -240,6 +246,35 @@ void UART4_IRQHandler(void)
   /* USER CODE BEGIN UART4_IRQn 1 */
 
   /* USER CODE END UART4_IRQn 1 */
+}
+
+/**
+* @brief This function handles TIM6 global interrupt and DAC underrun error interrupts.
+*/
+void TIM6_DAC_IRQHandler(void)
+{
+  /* USER CODE BEGIN TIM6_DAC_IRQn 0 */
+		
+		if(cnt==0){
+			LED_CLK_set;	
+			cnt = 1;
+		}else{
+			LED_CLK_reset;
+			cnt = 0;
+		}
+		
+	
+	if(timecount<=100){
+		timecount++;
+	}
+	else{
+		timecount = 0;
+	}
+  /* USER CODE END TIM6_DAC_IRQn 0 */
+  HAL_TIM_IRQHandler(&htim6);
+  /* USER CODE BEGIN TIM6_DAC_IRQn 1 */
+
+  /* USER CODE END TIM6_DAC_IRQn 1 */
 }
 
 /* USER CODE BEGIN 1 */
