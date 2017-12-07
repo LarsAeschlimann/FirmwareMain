@@ -64,6 +64,9 @@ unsigned int testcount = 0;
 volatile unsigned int i;
 volatile char flag;
 
+enum select{HUE,SAT,LUM};
+enum select sel = HUE;
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -78,6 +81,7 @@ static void MX_TIM3_Init(void);
 /* Private function prototypes -----------------------------------------------*/
 void ledpwm(void);
 void ledtest(void);
+void select(void);
 /* USER CODE END PFP */
 
 /* USER CODE BEGIN 0 */
@@ -157,6 +161,34 @@ void ledtest(void){
 	LED_CLEAR_reset;
 }
 
+void select(void){//Funktion fuer die weissen Select LEDs
+	switch(sel){
+		case HUE:
+			if(buttonstring[BUTTON_SEL_LUM])sel = LUM;
+			if(buttonstring[BUTTON_SEL_SAT])sel = SAT;
+			LED_W_up_set;
+			LED_W_middle_reset;
+			LED_W_down_reset;
+		break;
+		
+		case SAT:
+			if(buttonstring[BUTTON_SEL_HUE])sel = HUE;
+			if(buttonstring[BUTTON_SEL_LUM])sel = LUM;
+			LED_W_up_reset;
+			LED_W_middle_set;
+			LED_W_down_reset;
+		break;
+		
+		case LUM:
+			if(buttonstring[BUTTON_SEL_HUE])sel = HUE;
+			if(buttonstring[BUTTON_SEL_SAT])sel = SAT;
+			LED_W_up_reset;
+			LED_W_middle_reset;
+			LED_W_down_set;
+		break;
+	}
+}
+
 /* USER CODE END 0 */
 
 int main(void)
@@ -202,31 +234,13 @@ int main(void)
   {
 		LED_CLEAR_set;
 		ledpwm();
+		select();
 		//readstring();
-		
-		if(buttonstring[BUTTON_COPY]){
-			LED_W_middle_set;
-		}
-		else{
-			LED_W_middle_reset;
-		}
-		
-		if(buttonstring[BUTTON_MAGENTA]){
-			LED_W_up_reset;
-		}
-		else{
-			LED_W_up_set;
-		}
-	//	if((timecount<=B_magenta)&&(B_magenta!=0)){LED_B_magenta_set;}else{LED_B_magenta_reset;}
-		//ledtest();
-		//HAL_GPIO_WritePin(GPIOB, GPIO_PIN_6, GPIO_PIN_RESET);
-	
+			
 		
 		HAL_UART_Transmit_IT(&huart4, (uint8_t *)buffertx, 8);
 		HAL_UART_Receive_IT(&huart4, (uint8_t *)bufferrx, 8);
 		
-		
-	
   /* USER CODE END WHILE */
 
   /* USER CODE BEGIN 3 */
