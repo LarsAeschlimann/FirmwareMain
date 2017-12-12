@@ -66,6 +66,8 @@ extern volatile char sendflag;
 #define BUFFERSIZE 20
 #define STRINGLENGTH 8
 
+#define NUMBERBUTTONS 48
+
 enum select{HUE,SAT,LUM};
 
 

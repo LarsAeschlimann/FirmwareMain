@@ -58,7 +58,8 @@ UART_HandleTypeDef huart3;
 char buffertx[50];
 char bufferrx[8];
 
-volatile char  buttonstring[48];
+volatile char  buttonstring[NUMBERBUTTONS];
+char copy[NUMBERBUTTONS];
 char encoderstring[] = "Aa05XXXXXXXXXXXX";
 
 char ringbuffer[BUFFERSIZE][STRINGLENGTH];//FIFO Ringbuffer
@@ -371,6 +372,16 @@ int main(void)
 		ledpwm();
 		select();
 		sendfunction();
+		
+		for(unsigned char i =0; i<48; )
+		{
+			if(copy[i] > 0) //Taste ist gedrückt
+			{
+				char cmd[4];
+				endcode_button(cmd, i); 	//Taste Nr i decodieren
+				fifoput(cmd);				//Decodierter Wert in Fifo buffer ablegen
+			}
+	}
 		
 		
   /* USER CODE END WHILE */
