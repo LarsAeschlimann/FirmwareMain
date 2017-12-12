@@ -43,6 +43,7 @@
 /* USER CODE BEGIN Includes */
 #include "string.h"
 #include "stdbool.h"
+#include "stdlib.h"
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
@@ -54,17 +55,33 @@ UART_HandleTypeDef huart3;
 
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
-char* buffertx = "Aa05\n";
-char* bufferrx = "halloo\n";
-char  string[8];
+char buffertx[50];
+char bufferrx[8];
+
 volatile char  buttonstring[48];
+char encoderstring[] = "Aa05XXXXXXXXXXXX";
+
+char ringbuffer[BUFFERSIZE][STRINGLENGTH];//FIFO Ringbuffer
+struct Buffer{
+	char write;
+	char read;
+} buffer={0,0};
+
+
+
+char stringbyte1[8];
+char stringbyte2[8];
+char stringbyte3[8];
+char stringbyte4[8];
+char singlestrings[BUFFERSIZE];
+
 volatile unsigned int timecount;
 volatile unsigned int cnt;
 unsigned int testcount = 0;
 volatile unsigned int i;
-volatile char flag;
+volatile char flag; 
+volatile char sendflag = 0;
 
-enum select{HUE,SAT,LUM};
 enum select sel = HUE;
 
 /* USER CODE END PV */
@@ -82,6 +99,7 @@ static void MX_TIM3_Init(void);
 void ledpwm(void);
 void ledtest(void);
 void select(void);
+void sendfunction(void);
 /* USER CODE END PFP */
 
 /* USER CODE BEGIN 0 */
@@ -164,30 +182,76 @@ void ledtest(void){
 void select(void){//Funktion fuer die weissen Select LEDs
 	switch(sel){
 		case HUE:
-			if(buttonstring[BUTTON_SEL_LUM])sel = LUM;
-			if(buttonstring[BUTTON_SEL_SAT])sel = SAT;
+			if((buttonstring[BUTTON_SEL_LUM])&&(!buttonstring[BUTTON_SEL_HUE])&&(!buttonstring[BUTTON_SEL_SAT]))sel = LUM;
+			if((buttonstring[BUTTON_SEL_SAT])&&(!buttonstring[BUTTON_SEL_HUE])&&(!buttonstring[BUTTON_SEL_LUM]))sel = SAT;
 			LED_W_up_set;
 			LED_W_middle_reset;
 			LED_W_down_reset;
+	//		buffertx = "Hallo";
 		break;
 		
 		case SAT:
-			if(buttonstring[BUTTON_SEL_HUE])sel = HUE;
-			if(buttonstring[BUTTON_SEL_LUM])sel = LUM;
+			if((buttonstring[BUTTON_SEL_HUE])&&(!buttonstring[BUTTON_SEL_LUM])&&(!buttonstring[BUTTON_SEL_SAT]))sel = HUE;
+			if((buttonstring[BUTTON_SEL_LUM])&&(!buttonstring[BUTTON_SEL_HUE])&&(!buttonstring[BUTTON_SEL_SAT]))sel = LUM;
 			LED_W_up_reset;
 			LED_W_middle_set;
 			LED_W_down_reset;
+	//		buffertx = "duda";
 		break;
 		
 		case LUM:
-			if(buttonstring[BUTTON_SEL_HUE])sel = HUE;
-			if(buttonstring[BUTTON_SEL_SAT])sel = SAT;
+			if((buttonstring[BUTTON_SEL_HUE])&&(!buttonstring[BUTTON_SEL_LUM])&&(!buttonstring[BUTTON_SEL_SAT]))sel = HUE;
+			if((buttonstring[BUTTON_SEL_SAT])&&(!buttonstring[BUTTON_SEL_HUE])&&(!buttonstring[BUTTON_SEL_LUM]))sel = SAT;
 			LED_W_up_reset;
 			LED_W_middle_reset;
 			LED_W_down_set;
+		//	buffertx = "FUCK";
 		break;
 	}
 }
+
+char fifoput(char* inputencode){
+	
+	if ((buffer.write + 1 == buffer.read)||(buffer.read == 0 && buffer.write + 1 == BUFFERSIZE))return 0;
+	if(buffer.write >= BUFFERSIZE)buffer.write = 0;
+	
+	ringbuffer[buffer.write][0] = inputencode[0];
+	ringbuffer[buffer.write][1] = inputencode[1];
+	ringbuffer[buffer.write][2] = inputencode[2];
+	ringbuffer[buffer.write][3] = inputencode[3];
+	buffer.write++;
+
+	return 1;
+}
+
+char fifoget(char* fifoout){//0 invalid, 1 valid
+	
+	if (buffer.read == buffer.write)return 0;
+	
+	fifoout[0] = ringbuffer[buffer.read][0];
+	fifoout[1] = ringbuffer[buffer.read][1];
+	fifoout[2] = ringbuffer[buffer.read][2];
+	fifoout[3] = ringbuffer[buffer.read][3];
+	buffer.read++;
+	if(buffer.read >= BUFFERSIZE)buffer.read = 0;
+	
+	return 1;
+}
+
+void sendfunction(void){
+	
+//	fifoget();
+	sendflag = 0;
+		//sendstring[2][4] = "ta04";
+	strcpy(stringbyte1,"Hallo");
+	if(!sendflag){
+		strcpy(buffertx, stringbyte1);
+		HAL_UART_Transmit_IT(&huart4, (uint8_t *)buffertx, 8);
+		sendflag = 1;
+	}
+
+}
+
 
 /* USER CODE END 0 */
 
@@ -222,24 +286,21 @@ int main(void)
   MX_TIM3_Init();
 
   /* USER CODE BEGIN 2 */
-	__HAL_UART_ENABLE_IT(&huart4, UART_IT_TC);
-	__HAL_UART_ENABLE_IT(&huart4, UART_IT_RXNE);
+	//__HAL_UART_ENABLE_IT(&huart4, UART_IT_TC);
+//	__HAL_UART_ENABLE_IT(&huart4, UART_IT_RXNE);
 	HAL_TIM_Base_Start_IT(&htim3);
 	HAL_TIM_Base_Start_IT(&htim6);
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  while (1)
+  while (1)//===========================================WHILE========================================================
   {
 		LED_CLEAR_set;
 		ledpwm();
 		select();
-		//readstring();
-			
+		sendfunction();
 		
-		HAL_UART_Transmit_IT(&huart4, (uint8_t *)buffertx, 8);
-		HAL_UART_Receive_IT(&huart4, (uint8_t *)bufferrx, 8);
 		
   /* USER CODE END WHILE */
 

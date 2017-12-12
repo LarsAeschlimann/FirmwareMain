@@ -63,10 +63,8 @@ extern volatile char buttonstring[];
 extern volatile unsigned int i;
 extern volatile char sendflag;
 
-#define BUFFERSIZE 20
-#define STRINGLENGTH 8
-
-enum select{HUE,SAT,LUM};
+#define NUMBEROFSTRINGS 20
+#define STRINGLENGTH 4
 
 
 #define R_red				100

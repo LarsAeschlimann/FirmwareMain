@@ -38,6 +38,9 @@
 /* USER CODE BEGIN 0 */
 #include "main.h"
 #include "stdbool.h"
+
+extern char buffertx[50];
+extern char* stringbyte1;
 /* USER CODE END 0 */
 
 /* External variables --------------------------------------------------------*/
@@ -69,7 +72,7 @@ void NMI_Handler(void)
 void HardFault_Handler(void)
 {
   /* USER CODE BEGIN HardFault_IRQn 0 */
-
+	
   /* USER CODE END HardFault_IRQn 0 */
   while (1)
   {
@@ -194,18 +197,16 @@ void SysTick_Handler(void)
 void TIM3_IRQHandler(void)
 {
   /* USER CODE BEGIN TIM3_IRQn 0 */
-	
-		
 		SHIFT_ENABLE;
 		if(flag){
-		i++;
-		SHIFT_CLK_set;	
-		buttonstring[i] = SHIFT_DATA;
+			i++;
+			SHIFT_CLK_set;	
+			buttonstring[i] = SHIFT_DATA;
 			flag=0;
 		}
 		else
 		{
-		SHIFT_CLK_reset;
+			SHIFT_CLK_reset;
 			flag=1;
 		}
 		if(i>48){
@@ -240,11 +241,13 @@ void USART3_IRQHandler(void)
 void UART4_IRQHandler(void)
 {
   /* USER CODE BEGIN UART4_IRQn 0 */
-
+	
   /* USER CODE END UART4_IRQn 0 */
   HAL_UART_IRQHandler(&huart4);
   /* USER CODE BEGIN UART4_IRQn 1 */
-
+	
+	//sendflag = 1;
+	//HAL_UART_Receive_IT(&huart4, (uint8_t *)bufferrx, 8);
   /* USER CODE END UART4_IRQn 1 */
 }
 
