@@ -210,6 +210,75 @@ void select(void){//Funktion fuer die weissen Select LEDs
 	}
 }
 
+
+void endcode_button(char cmd[], unsigned char selected_button)
+{
+	if(buttonstring[BUTTON_FN]==0) 
+		cmd[0] = 'T'; //grossgeschrieben = Normalmodus
+	else
+		cmd[0] = 't'; //kleingeschrieben = FN Modus
+	
+	switch(sel)
+	{
+		case HUE: cmd[1] = 'A'; break;
+		case SAT: cmd[1] = 'B'; break;
+		case LUM: cmd[1] = 'C'; break;
+		default : cmd[1] = '?'; break;
+	}
+	switch(selected_button)
+	{
+		//Encoderbuttons
+		case BUTTON_CONTRAST		: cmd[2]='0'; cmd[3]='1'; break;	
+    case BUTTON_SHADOW			: cmd[2]='0'; cmd[3]='2'; break;
+    case BUTTON_BLACK				: cmd[2]='0'; cmd[3]='3'; break;
+    case BUTTON_WHITE				: cmd[2]='0'; cmd[3]='4'; break;
+		case BUTTON_LIGHTS			: cmd[2]='0'; cmd[3]='5'; break;
+		case BUTTON_EXPOSURE		: cmd[2]='0'; cmd[3]='6'; break;	
+		case BUTTON_CLARITY			: cmd[2]='0'; cmd[3]='7'; break;
+		case BUTTON_DYNAMIC			: cmd[2]='0'; cmd[3]='8'; break;
+	  case BUTTON_ENCSAT			: cmd[2]='0'; cmd[3]='9'; break;	
+			
+    case BUTTON_RED					: cmd[2]='1'; cmd[3]='0'; break;
+    case BUTTON_ORANGE			: cmd[2]='1'; cmd[3]='1'; break;
+    case BUTTON_YELLOW			: cmd[2]='1'; cmd[3]='2'; break;
+    case BUTTON_GREEN				: cmd[2]='1'; cmd[3]='3'; break;
+    case BUTTON_AQUA				: cmd[2]='1'; cmd[3]='4'; break;	
+    case BUTTON_BLUE				: cmd[2]='1'; cmd[3]='5'; break;	
+    case BUTTON_PURPLE			: cmd[2]='1'; cmd[3]='6'; break;
+    case BUTTON_MAGENTA			: cmd[2]='1'; cmd[3]='7'; break;
+																			
+		case BUTTON_PROG				: cmd[2]='1'; cmd[3]='8'; break;
+    case BUTTON_CROP				: cmd[2]='1'; cmd[3]='9'; break;
+		
+		//Buttons
+		case BUTTON_UNDO				: cmd[2]='2'; cmd[3]='0'; break;	
+    case BUTTON_REDO				: cmd[2]='2'; cmd[3]='1'; break;	
+    case BUTTON_FULL				: cmd[2]='2'; cmd[3]='2'; break;	
+    case BUTTON_COLOR_BW		: cmd[2]='2'; cmd[3]='3'; break;	
+    case BUTTON_SEL_HUE			: cmd[2]='2'; cmd[3]='4'; break;
+    case BUTTON_SEL_SAT			: cmd[2]='2'; cmd[3]='5'; break;
+    case BUTTON_SEL_LUM			: cmd[2]='2'; cmd[3]='6'; break;
+    case BUTTON_STAR_1			: cmd[2]='2'; cmd[3]='7'; break;
+    case BUTTON_STAR_2			: cmd[2]='2'; cmd[3]='8'; break;
+    case BUTTON_STAR_3			: cmd[2]='2'; cmd[3]='9'; break;
+    case BUTTON_STAR_4			: cmd[2]='3'; cmd[3]='0'; break;
+    case BUTTON_STAR_5			: cmd[2]='3'; cmd[3]='1'; break;
+    case BUTTON_COPY				: cmd[2]='3'; cmd[3]='2'; break;	
+    case BUTTON_PASTE				: cmd[2]='3'; cmd[3]='3'; break;
+    case BUTTON_FN					: cmd[2]='3'; cmd[3]='4'; break;
+    case BUTTON_PICK				: cmd[2]='3'; cmd[3]='5'; break;	
+    case BUTTON_ZOOM				: cmd[2]='3'; cmd[3]='6'; break;
+		case BUTTON_RIGHT				: cmd[2]='3'; cmd[3]='7'; break;
+		case BUTTON_LEFT      	: cmd[2]='3'; cmd[3]='8'; break;		
+		case BUTTON_UP					: cmd[2]='3'; cmd[3]='9'; break;
+		case BUTTON_DOWN				: cmd[2]='4'; cmd[3]='0'; break;	
+		case BUTTON_BEFOREAFTER	: cmd[2]='4'; cmd[3]='1'; break;
+    case BUTTON_DEVELOP			: cmd[2]='4'; cmd[3]='2'; break;
+		
+		default 								: cmd[2]='?'; cmd[3]='?'; break;
+	}
+}
+
 char fifoput(char* inputencode){
 	
 	if ((buffer.write + 1 == buffer.read)||(buffer.read == 0 && buffer.write + 1 == BUFFERSIZE))return 0;
@@ -237,6 +306,8 @@ char fifoget(char* fifoout){//0 invalid, 1 valid
 	
 	return 1;
 }
+
+
 
 void sendfunction(void){
 	
