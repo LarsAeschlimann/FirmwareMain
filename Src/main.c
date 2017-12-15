@@ -58,9 +58,9 @@ UART_HandleTypeDef huart3;
 char buffertx[50];
 char bufferrx[8];
 
-volatile char  buttonstring[NUMBERBUTTONS];
-char copy[NUMBERBUTTONS];
-char encoderstring[] = "Aa05XXXXXXXXXXXX";
+volatile char buttonstring[NUMBERBUTTONS];
+char copy[NUMBERBUTTONS];//entspricht buttonstring mit invertierten Encoder
+char fifoout[4];
 
 char ringbuffer[BUFFERSIZE][STRINGLENGTH];//FIFO Ringbuffer
 struct Buffer{
@@ -68,16 +68,11 @@ struct Buffer{
 	char read;
 } buffer={0,0};
 
-
-
-char stringbyte1[8];
-char stringbyte2[8];
-char stringbyte3[8];
-char stringbyte4[8];
 char singlestrings[BUFFERSIZE];
 
 volatile unsigned int timecount;
 volatile unsigned int cnt;
+unsigned int cnt2;
 unsigned int testcount = 0;
 volatile unsigned int i;
 volatile char flag; 
@@ -101,6 +96,8 @@ void ledpwm(void);
 void ledtest(void);
 void select(void);
 void sendfunction(void);
+void incremental_invert(void);
+
 /* USER CODE END PFP */
 
 /* USER CODE BEGIN 0 */
@@ -188,7 +185,6 @@ void select(void){//Funktion fuer die weissen Select LEDs
 			LED_W_up_set;
 			LED_W_middle_reset;
 			LED_W_down_reset;
-	//		buffertx = "Hallo";
 		break;
 		
 		case SAT:
@@ -197,7 +193,6 @@ void select(void){//Funktion fuer die weissen Select LEDs
 			LED_W_up_reset;
 			LED_W_middle_set;
 			LED_W_down_reset;
-	//		buffertx = "duda";
 		break;
 		
 		case LUM:
@@ -206,15 +201,63 @@ void select(void){//Funktion fuer die weissen Select LEDs
 			LED_W_up_reset;
 			LED_W_middle_reset;
 			LED_W_down_set;
-		//	buffertx = "FUCK";
 		break;
 	}
 }
 
+void incremental_invert(void)//Invertiert die Encoder und macht einen neuen String
+{
+		if(buttonstring[BUTTON_CONTRAST])		{copy[BUTTON_CONTRAST]		=	0;}else{copy[BUTTON_CONTRAST]		=	1;}
+		if(buttonstring[BUTTON_SHADOW])			{copy[BUTTON_SHADOW]			=	0;}else{copy[BUTTON_SHADOW]			=	1;}
+		if(buttonstring[BUTTON_BLACK])			{copy[BUTTON_BLACK]				=	0;}else{copy[BUTTON_BLACK]			=	1;}
+		if(buttonstring[BUTTON_WHITE])			{copy[BUTTON_WHITE]				=	0;}else{copy[BUTTON_WHITE]			=	1;}
+		if(buttonstring[BUTTON_LIGHTS])			{copy[BUTTON_LIGHTS]			=	0;}else{copy[BUTTON_LIGHTS]			=	1;}
+		if(buttonstring[BUTTON_EXPOSURE])		{copy[BUTTON_EXPOSURE]		=	0;}else{copy[BUTTON_EXPOSURE]		=	1;}
+		if(buttonstring[BUTTON_CLARITY])		{copy[BUTTON_CLARITY]			=	0;}else{copy[BUTTON_CLARITY]		=	1;}
+		if(buttonstring[BUTTON_DYNAMIC])		{copy[BUTTON_DYNAMIC]			=	0;}else{copy[BUTTON_DYNAMIC]		=	1;}
+		if(buttonstring[BUTTON_ENCSAT])			{copy[BUTTON_ENCSAT]			=	0;}else{copy[BUTTON_ENCSAT]			=	1;}
+																																				
+		if(buttonstring[BUTTON_RED])				{copy[BUTTON_RED]					=	0;}else{copy[BUTTON_RED]				=	1;}
+		if(buttonstring[BUTTON_ORANGE])			{copy[BUTTON_ORANGE]			=	0;}else{copy[BUTTON_ORANGE]			=	1;}
+		if(buttonstring[BUTTON_YELLOW])			{copy[BUTTON_YELLOW]			=	0;}else{copy[BUTTON_YELLOW]			=	1;}
+		if(buttonstring[BUTTON_GREEN])			{copy[BUTTON_GREEN]				=	0;}else{copy[BUTTON_GREEN]			=	1;}
+		if(buttonstring[BUTTON_AQUA])				{copy[BUTTON_AQUA]				=	0;}else{copy[BUTTON_AQUA]				=	1;}
+		if(buttonstring[BUTTON_BLUE])				{copy[BUTTON_BLUE]				=	0;}else{copy[BUTTON_BLUE]				=	1;}
+		if(buttonstring[BUTTON_PURPLE])			{copy[BUTTON_PURPLE]			=	0;}else{copy[BUTTON_PURPLE]			=	1;}
+		if(buttonstring[BUTTON_MAGENTA])		{copy[BUTTON_MAGENTA]			=	0;}else{copy[BUTTON_MAGENTA]		=	1;}
+																																							
+		if(buttonstring[BUTTON_PROG])				{copy[BUTTON_PROG]				=	0;}else{copy[BUTTON_PROG]				=	1;}
+		if(buttonstring[BUTTON_CROP])				{copy[BUTTON_CROP]				=	0;}else{copy[BUTTON_CROP]				=	1;}
+		
+		if(buttonstring[BUTTON_UNDO])				{copy[BUTTON_UNDO]				= 1;}else{copy[BUTTON_UNDO] 			= 0;}
+		if(buttonstring[BUTTON_REDO])				{copy[BUTTON_REDO]				= 1;}else{copy[BUTTON_REDO] 			= 0;}
+		if(buttonstring[BUTTON_FULL])				{copy[BUTTON_FULL]				= 1;}else{copy[BUTTON_FULL] 			= 0;}
+		if(buttonstring[BUTTON_COLOR_BW])		{copy[BUTTON_COLOR_BW]		= 1;}else{copy[BUTTON_COLOR_BW] 	= 0;}
+		if(buttonstring[BUTTON_SEL_HUE])		{copy[BUTTON_SEL_HUE]			= 1;}else{copy[BUTTON_SEL_HUE] 		= 0;}
+		if(buttonstring[BUTTON_SEL_SAT])		{copy[BUTTON_SEL_SAT]			= 1;}else{copy[BUTTON_SEL_SAT] 		= 0;}
+		if(buttonstring[BUTTON_SEL_LUM])		{copy[BUTTON_SEL_LUM]			= 1;}else{copy[BUTTON_SEL_LUM] 		= 0;}
+		if(buttonstring[BUTTON_STAR_1])			{copy[BUTTON_STAR_1]			= 1;}else{copy[BUTTON_STAR_1] 		= 0;}
+		if(buttonstring[BUTTON_STAR_2])			{copy[BUTTON_STAR_2]			= 1;}else{copy[BUTTON_STAR_2] 		= 0;}
+		if(buttonstring[BUTTON_STAR_3])			{copy[BUTTON_STAR_3]			= 1;}else{copy[BUTTON_STAR_3] 		= 0;}
+		if(buttonstring[BUTTON_STAR_4])			{copy[BUTTON_STAR_4]			= 1;}else{copy[BUTTON_STAR_4] 		= 0;}
+		if(buttonstring[BUTTON_STAR_5])			{copy[BUTTON_STAR_5]			= 1;}else{copy[BUTTON_STAR_5] 		= 0;}
+		if(buttonstring[BUTTON_COPY])				{copy[BUTTON_COPY]				= 1;}else{copy[BUTTON_COPY] 			= 0;}
+		if(buttonstring[BUTTON_PASTE])			{copy[BUTTON_PASTE]				= 1;}else{copy[BUTTON_PASTE] 			= 0;}
+		if(buttonstring[BUTTON_FN])					{copy[BUTTON_FN]					= 1;}else{copy[BUTTON_FN] 				= 0;}
+		if(buttonstring[BUTTON_PICK])				{copy[BUTTON_PICK]				= 1;}else{copy[BUTTON_PICK] 			= 0;}
+		if(buttonstring[BUTTON_ZOOM])				{copy[BUTTON_ZOOM]				= 1;}else{copy[BUTTON_ZOOM] 			= 0;}
+		if(buttonstring[BUTTON_RIGHT])			{copy[BUTTON_RIGHT]				= 1;}else{copy[BUTTON_RIGHT]		  = 0;}
+		if(buttonstring[BUTTON_LEFT])				{copy[BUTTON_LEFT]				= 1;}else{copy[BUTTON_LEFT] 			= 0;}
+		if(buttonstring[BUTTON_UP])					{copy[BUTTON_UP]					= 1;}else{copy[BUTTON_UP] 				= 0;}
+		if(buttonstring[BUTTON_DOWN])				{copy[BUTTON_DOWN]				= 1;}else{copy[BUTTON_DOWN] 			= 0;}
+		if(buttonstring[BUTTON_BEFOREAFTER]){copy[BUTTON_BEFOREAFTER]	= 1;}else{copy[BUTTON_BEFOREAFTER]= 0;}
+		if(buttonstring[BUTTON_DEVELOP])		{copy[BUTTON_DEVELOP]			= 1;}else{copy[BUTTON_DEVELOP] 		= 0;}
+
+}
 
 void endcode_button(char cmd[], unsigned char selected_button)
 {
-	if(buttonstring[BUTTON_FN]==0) 
+	if(copy[BUTTON_FN]==0) 
 		cmd[0] = 'T'; //grossgeschrieben = Normalmodus
 	else
 		cmd[0] = 't'; //kleingeschrieben = FN Modus
@@ -308,16 +351,28 @@ char fifoget(char* fifoout){//0 invalid, 1 valid
 	return 1;
 }
 
-
-
 void sendfunction(void){
 	
-//	fifoget();
+		for(unsigned char i =0; i<48; i++)
+		{
+			if(copy[i] > 0) //Taste ist gedrückt
+			{
+				char cmd[4];
+				endcode_button(cmd, i); 	//Taste Nr i decodieren
+				fifoput(cmd);				//Decodierter Wert in Fifo buffer ablegen
+			}
+			else{
+				fifoput("    ");
+			}
+		}
+	
+	//fifoput("HAAA");
+	if(fifoget(fifoout)){
+		strcpy(buffertx,"");
+		strncat(buffertx, fifoout, 4);		
+	}
 	sendflag = 0;
-		//sendstring[2][4] = "ta04";
-	strcpy(stringbyte1,"Hallo");
 	if(!sendflag){
-		strcpy(buffertx, stringbyte1);
 		HAL_UART_Transmit_IT(&huart4, (uint8_t *)buffertx, 8);
 		sendflag = 1;
 	}
@@ -371,18 +426,12 @@ int main(void)
 		LED_CLEAR_set;
 		ledpwm();
 		select();
+		incremental_invert();
+		if(cnt2>500){//sendfunction evt in timerinterupt oder doch UART IR
 		sendfunction();
-		
-		for(unsigned char i =0; i<48; )
-		{
-			if(copy[i] > 0) //Taste ist gedrückt
-			{
-				char cmd[4];
-				endcode_button(cmd, i); 	//Taste Nr i decodieren
-				fifoput(cmd);				//Decodierter Wert in Fifo buffer ablegen
-			}
-	}
-		
+			cnt2 = 0;
+		}
+		cnt2++;
 		
   /* USER CODE END WHILE */
 

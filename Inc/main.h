@@ -63,7 +63,7 @@ extern volatile char buttonstring[];
 extern volatile unsigned int i;
 extern volatile char sendflag;
 
-#define BUFFERSIZE 20
+#define BUFFERSIZE 48
 #define STRINGLENGTH 8
 
 #define NUMBERBUTTONS 48
@@ -170,6 +170,11 @@ enum select{HUE,SAT,LUM};
 #define LED_B_magenta_reset 	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_15, GPIO_PIN_RESET);
 #define LED_B_violett_reset 	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_12, GPIO_PIN_RESET);
 
+#define LED_DEBUG1_set				HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_SET);
+#define LED_DEBUG1_reset 			HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_RESET);
+#define LED_DEBUG2_set	 			HAL_GPIO_WritePin(GPIOB, GPIO_PIN_1, GPIO_PIN_SET);
+#define LED_DEBUG2_reset 			HAL_GPIO_WritePin(GPIOB, GPIO_PIN_1, GPIO_PIN_RESET);
+
 #define SHIFT_CLK_set 				HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET);
 #define SHIFT_CLK_reset 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);
 
@@ -196,11 +201,11 @@ enum select{HUE,SAT,LUM};
 #define BUTTON_STAR_5				12
 #define BUTTON_COPY					43
 #define BUTTON_PASTE				42
-#define BUTTON_FN						11
+#define BUTTON_DEVELOP			11
 #define BUTTON_PICK					41
 #define BUTTON_ZOOM					40
 #define BUTTON_BEFOREAFTER	35
-#define BUTTON_DEVELOP			36
+#define BUTTON_FN						36
 
 #define BUTTON_RED				15
 #define BUTTON_ORANGE			8
