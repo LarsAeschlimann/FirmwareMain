@@ -199,7 +199,11 @@ void TIM3_IRQHandler(void)
   /* USER CODE BEGIN TIM3_IRQn 0 */
 	
 <<<<<<< HEAD
+<<<<<<< HEAD
 		SHIFT_ENABLE();
+=======
+		SHIFT_ENABLE;
+>>>>>>> parent of 02f1efd... Changed defines
 		if(flag){
 =======
 		SHIFT_ENABLE;
@@ -234,7 +238,7 @@ void TIM3_IRQHandler(void)
 		}
 		if(shift_reg_addr_cnt>48){
 			shift_reg_addr_cnt = 0;
-			SHIFT_DISABLE();
+			SHIFT_DISABLE;
 		}
 	
 	
@@ -283,10 +287,10 @@ void TIM6_DAC_IRQHandler(void)
   /* USER CODE BEGIN TIM6_DAC_IRQn 0 */
 		
 		if(cnt==0){
-			LED_CLK_SET();	
+			LED_CLK_set;	
 			cnt = 1;
 		}else{
-			LED_CLK_RESET();
+			LED_CLK_reset;
 			cnt = 0;
 		}
 		
