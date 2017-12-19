@@ -198,16 +198,25 @@ void TIM3_IRQHandler(void)
 {
   /* USER CODE BEGIN TIM3_IRQn 0 */
 	
+<<<<<<< HEAD
 		SHIFT_ENABLE();
 		if(flag){
+=======
+		SHIFT_ENABLE;
+		if(flag)
+		{
+>>>>>>> a0e29b7b733ac34fde974c94cb879d42c99bec1f
 			shift_reg_addr_cnt++;
 			SHIFT_CLK_SET();	
-			char shift_data_new = SHIFT_DATA();
-			if(button_get_active_state(shift_reg_addr_cnt) == 0){ //button low activ?
-				shift_data_new = !shift_data_new; //invert sd data
+			
+			char current_sd_data = SHIFT_DATA();
+			
+			if(button_get_active_state(shift_reg_addr_cnt) == 0) //button low activ?
+			{ 
+				current_sd_data = !current_sd_data; //invert sd data
 			}
 			
-			if((shift_reg_values[shift_reg_addr_cnt] == 0)&&(shift_data_new))
+			if((shift_reg_values[shift_reg_addr_cnt] == 0) && (current_sd_data == 1 )) //positive Flanke
 			{
 				shift_reg_values[shift_reg_addr_cnt] = 1;
 			}
