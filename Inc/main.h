@@ -76,117 +76,117 @@ char button_get_active_state(char encoder);
 enum select{HUE,SAT,LUM};
 
 
-#define R_red				100
-#define G_red				0
-#define B_red				0
+#define R_RED				100
+#define G_RED				0
+#define B_RED				0
 
-#define R_orange		100
-#define G_orange		1
-#define B_orange		0
+#define R_ORANGE		100
+#define G_ORANGE		1
+#define B_ORANGE		0
 
-#define R_yellow		90
-#define G_yellow		10
-#define B_yellow		0
+#define R_YELLOW		90
+#define G_YELLOW		10
+#define B_YELLOW		0
 
-#define R_green			0
-#define G_green			100
-#define B_green			0
+#define R_GREEN			0
+#define G_GREEN			100
+#define B_GREEN			0
 
-#define R_blue			0
-#define G_blue			0
-#define B_blue			50
+#define R_BLUE			0
+#define G_BLUE			0
+#define B_BLUE			50
 
-#define R_aquamarin 30
-#define G_aquamarin	80
-#define B_aquamarin	100
+#define R_AQUAMARIN 30
+#define G_AQUAMARIN	80
+#define B_AQUAMARIN	100
 
-#define R_magenta 	100
-#define G_magenta 	100
-#define B_magenta		100
+#define R_MAGENTA 	100
+#define G_MAGENTA 	100
+#define B_MAGENTA		100
 
-#define R_violett		100
-#define G_violett		0
-#define B_violett		10
+#define R_VIOLETT		100
+#define G_VIOLETT		0
+#define B_VIOLETT		10
 
-#define LED_CLEAR_set					HAL_GPIO_WritePin(GPIOB, GPIO_PIN_6, GPIO_PIN_SET);
-#define LED_CLEAR_reset				HAL_GPIO_WritePin(GPIOB, GPIO_PIN_6, GPIO_PIN_RESET);
-#define LED_CLK_set						HAL_GPIO_WritePin(GPIOB, GPIO_PIN_7, GPIO_PIN_SET);
-#define LED_CLK_reset					HAL_GPIO_WritePin(GPIOB, GPIO_PIN_7, GPIO_PIN_RESET);
+#define LED_CLEAR_SET()					HAL_GPIO_WritePin(GPIOB, GPIO_PIN_6, GPIO_PIN_SET)
+#define LED_CLEAR_RESET()				HAL_GPIO_WritePin(GPIOB, GPIO_PIN_6, GPIO_PIN_RESET)
+#define LED_CLK_SET()						HAL_GPIO_WritePin(GPIOB, GPIO_PIN_7, GPIO_PIN_SET)
+#define LED_CLK_RESET()					HAL_GPIO_WritePin(GPIOB, GPIO_PIN_7, GPIO_PIN_RESET)
 
-#define LED_W_up_set					HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_SET);
-#define LED_W_middle_set			HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, GPIO_PIN_SET);
-#define LED_W_down_set				HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, GPIO_PIN_SET);
+#define LED_W_UP_SET()					HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_SET)
+#define LED_W_MIDDLE_SET()			HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, GPIO_PIN_SET)
+#define LED_W_DOWN_SET()				HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, GPIO_PIN_SET)
 
-#define LED_W_up_reset				HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);
-#define LED_W_middle_reset		HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, GPIO_PIN_RESET);
-#define LED_W_down_reset			HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, GPIO_PIN_RESET);
+#define LED_W_UP_RESET()				HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET)
+#define LED_W_MIDDLE_RESET()		HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, GPIO_PIN_RESET)
+#define LED_W_DOWN_RESET()			HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, GPIO_PIN_RESET)
 
-#define LED_R_red_set 				HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, GPIO_PIN_SET);
-#define LED_R_orange_set 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_SET);
-#define LED_R_yellow_set 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_10, GPIO_PIN_SET);
-#define LED_R_green_set 			HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0, GPIO_PIN_SET);
-#define LED_R_blue_set		  	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_6, GPIO_PIN_SET);
-#define LED_R_aquamarin_set 	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_4, GPIO_PIN_SET);
-#define LED_R_magenta_set 		HAL_GPIO_WritePin(GPIOC, GPIO_PIN_14, GPIO_PIN_SET);
-#define LED_R_violett_set 		HAL_GPIO_WritePin(GPIOC, GPIO_PIN_9, GPIO_PIN_SET);
+#define LED_R_RED_SET() 				HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, GPIO_PIN_SET)
+#define LED_R_ORANGE_SET() 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_SET)
+#define LED_R_YELLOW_SET() 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_10, GPIO_PIN_SET)
+#define LED_R_GREEN_SET() 			HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0, GPIO_PIN_SET)
+#define LED_R_BLUE_SET()		  	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_6, GPIO_PIN_SET)
+#define LED_R_AQUAMARIN_SET() 	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_4, GPIO_PIN_SET)
+#define LED_R_MAGENTA_SET() 		HAL_GPIO_WritePin(GPIOC, GPIO_PIN_14, GPIO_PIN_SET)
+#define LED_R_VIOLETT_SET() 		HAL_GPIO_WritePin(GPIOC, GPIO_PIN_9, GPIO_PIN_SET)
 
-#define LED_R_red_reset 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, GPIO_PIN_RESET);
-#define LED_R_orange_reset 		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_RESET);
-#define LED_R_yellow_reset 		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_10, GPIO_PIN_RESET);
-#define LED_R_green_reset 		HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0, GPIO_PIN_RESET);
-#define LED_R_blue_reset		  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_6, GPIO_PIN_RESET);
-#define LED_R_aquamarin_reset HAL_GPIO_WritePin(GPIOC, GPIO_PIN_4, GPIO_PIN_RESET);
-#define LED_R_magenta_reset 	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_14, GPIO_PIN_RESET);
-#define LED_R_violett_reset 	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_9, GPIO_PIN_RESET);
+#define LED_R_RED_RESET() 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, GPIO_PIN_RESET)
+#define LED_R_ORANGE_RESET() 		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_RESET)
+#define LED_R_YELLOW_RESET() 		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_10, GPIO_PIN_RESET)
+#define LED_R_GREEN_RESET() 		HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0, GPIO_PIN_RESET)
+#define LED_R_BLUE_RESET()		  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_6, GPIO_PIN_RESET)
+#define LED_R_AQUAMARIN_RESET() HAL_GPIO_WritePin(GPIOC, GPIO_PIN_4, GPIO_PIN_RESET)
+#define LED_R_MAGENTA_RESET() 	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_14, GPIO_PIN_RESET)
+#define LED_R_VIOLETT_RESET() 	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_9, GPIO_PIN_RESET)
 
-#define LED_G_red_set 				HAL_GPIO_WritePin(GPIOA, GPIO_PIN_2, GPIO_PIN_SET);
-#define LED_G_orange_set 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, GPIO_PIN_SET);
-#define LED_G_yellow_set 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_9, GPIO_PIN_SET);
-#define LED_G_green_set 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_12, GPIO_PIN_SET);
-#define LED_G_blue_set		  	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_5, GPIO_PIN_SET);
-#define LED_G_aquamarin_set 	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_3, GPIO_PIN_SET);
-#define LED_G_magenta_set 		HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_SET);
-#define LED_G_violett_set 		HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_SET);
+#define LED_G_RED_SET() 				HAL_GPIO_WritePin(GPIOA, GPIO_PIN_2, GPIO_PIN_SET)
+#define LED_G_ORANGE_SET() 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, GPIO_PIN_SET)
+#define LED_G_YELLOW_SET() 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_9, GPIO_PIN_SET)
+#define LED_G_GREEN_SET() 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_12, GPIO_PIN_SET)
+#define LED_G_BLUE_SET()		  	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_5, GPIO_PIN_SET)
+#define LED_G_AQUAMARIN_SET() 	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_3, GPIO_PIN_SET)
+#define LED_G_MAGENTA_SET() 		HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_SET)
+#define LED_G_VIOLETT_SET() 		HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_SET)
             
-#define LED_G_red_reset 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_2, GPIO_PIN_RESET);
-#define LED_G_orange_reset 		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, GPIO_PIN_RESET);
-#define LED_G_yellow_reset 		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_9, GPIO_PIN_RESET);
-#define LED_G_green_reset 		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_12, GPIO_PIN_RESET);
-#define LED_G_blue_reset		  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_5, GPIO_PIN_RESET);
-#define LED_G_aquamarin_reset HAL_GPIO_WritePin(GPIOC, GPIO_PIN_3, GPIO_PIN_RESET);
-#define LED_G_magenta_reset 	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_RESET);
-#define LED_G_violett_reset 	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_RESET);
+#define LED_G_RED_RESET() 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_2, GPIO_PIN_RESET)
+#define LED_G_ORANGE_RESET() 		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, GPIO_PIN_RESET)
+#define LED_G_YELLOW_RESET() 		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_9, GPIO_PIN_RESET)
+#define LED_G_GREEN_RESET() 		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_12, GPIO_PIN_RESET)
+#define LED_G_BLUE_RESET()		  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_5, GPIO_PIN_RESET)
+#define LED_G_AQUAMARIN_RESET() HAL_GPIO_WritePin(GPIOC, GPIO_PIN_3, GPIO_PIN_RESET)
+#define LED_G_MAGENTA_RESET() 	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_RESET)
+#define LED_G_VIOLETT_RESET() 	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_RESET)
 
-#define LED_B_red_set 				HAL_GPIO_WritePin(GPIOA, GPIO_PIN_1, GPIO_PIN_SET);
-#define LED_B_orange_set 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_3, GPIO_PIN_SET);
-#define LED_B_yellow_set 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_11, GPIO_PIN_SET);
-#define LED_B_green_set 			HAL_GPIO_WritePin(GPIOC, GPIO_PIN_1, GPIO_PIN_SET);
-#define LED_B_blue_set		  	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_7, GPIO_PIN_SET);
-#define LED_B_aquamarin_set 	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_2, GPIO_PIN_SET);
-#define LED_B_magenta_set 		HAL_GPIO_WritePin(GPIOC, GPIO_PIN_15, GPIO_PIN_SET);
-#define LED_B_violett_set 		HAL_GPIO_WritePin(GPIOC, GPIO_PIN_12, GPIO_PIN_SET);
+#define LED_B_RED_SET() 				HAL_GPIO_WritePin(GPIOA, GPIO_PIN_1, GPIO_PIN_SET)
+#define LED_B_ORANGE_SET() 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_3, GPIO_PIN_SET)
+#define LED_B_YELLOW_SET() 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_11, GPIO_PIN_SET)
+#define LED_B_GREEN_SET() 			HAL_GPIO_WritePin(GPIOC, GPIO_PIN_1, GPIO_PIN_SET)
+#define LED_B_BLUE_SET()		  	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_7, GPIO_PIN_SET)
+#define LED_B_AQUAMARIN_SET() 	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_2, GPIO_PIN_SET)
+#define LED_B_MAGENTA_SET() 		HAL_GPIO_WritePin(GPIOC, GPIO_PIN_15, GPIO_PIN_SET)
+#define LED_B_VIOLETT_SET() 		HAL_GPIO_WritePin(GPIOC, GPIO_PIN_12, GPIO_PIN_SET)
             
-#define LED_B_red_reset 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_1, GPIO_PIN_RESET);
-#define LED_B_orange_reset 		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_3, GPIO_PIN_RESET);
-#define LED_B_yellow_reset 		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_11, GPIO_PIN_RESET);
-#define LED_B_green_reset 		HAL_GPIO_WritePin(GPIOC, GPIO_PIN_1, GPIO_PIN_RESET);
-#define LED_B_blue_reset		  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_7, GPIO_PIN_RESET);
-#define LED_B_aquamarin_reset HAL_GPIO_WritePin(GPIOC, GPIO_PIN_2, GPIO_PIN_RESET);
-#define LED_B_magenta_reset 	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_15, GPIO_PIN_RESET);
-#define LED_B_violett_reset 	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_12, GPIO_PIN_RESET);
+#define LED_B_RED_RESET() 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_1, GPIO_PIN_RESET)
+#define LED_B_ORANGE_RESET() 		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_3, GPIO_PIN_RESET)
+#define LED_B_YELLOW_RESET() 		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_11, GPIO_PIN_RESET)
+#define LED_B_GREEN_RESET() 		HAL_GPIO_WritePin(GPIOC, GPIO_PIN_1, GPIO_PIN_RESET)
+#define LED_B_BLUE_RESET()		  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_7, GPIO_PIN_RESET)
+#define LED_B_AQUAMARIN_RESET() HAL_GPIO_WritePin(GPIOC, GPIO_PIN_2, GPIO_PIN_RESET)
+#define LED_B_MAGENTA_RESET() 	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_15, GPIO_PIN_RESET)
+#define LED_B_VIOLETT_RESET() 	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_12, GPIO_PIN_RESET)
 
-#define LED_DEBUG1_set				HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_SET);
-#define LED_DEBUG1_reset 			HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_RESET);
-#define LED_DEBUG2_set	 			HAL_GPIO_WritePin(GPIOB, GPIO_PIN_1, GPIO_PIN_SET);
-#define LED_DEBUG2_SET() 			HAL_GPIO_WritePin(GPIOB, GPIO_PIN_1, GPIO_PIN_RESET)
-
+#define LED_DEBUG1_SET()				HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_SET)
+#define LED_DEBUG1_RESET() 			HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_RESET)
+#define LED_DEBUG2_SET()	 			HAL_GPIO_WritePin(GPIOB, GPIO_PIN_1, GPIO_PIN_SET)
+#define LED_DEBUG2_RESET() 			HAL_GPIO_WritePin(GPIOB, GPIO_PIN_1, GPIO_PIN_RESET)
+	
 #define SHIFT_CLK_SET() 				HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET)
 #define SHIFT_CLK_RESET() 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET)
-
-#define SHIFT_DATA() 					HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_6)
-
-#define SHIFT_ENABLE 					HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_SET);
-#define SHIFT_DISABLE 				HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_RESET);
+	
+#define SHIFT_DATA() 						HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_6)
+	
+#define SHIFT_ENABLE() 					HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_SET)
+#define SHIFT_DISABLE() 				HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_RESET)
 
 #define BUTTON_LEFT       	3
 #define BUTTON_RIGHT				0

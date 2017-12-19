@@ -109,78 +109,78 @@ void incremental_invert(void);
 /* USER CODE BEGIN 0 */
 void ledpwm(void){//evt Division entfernen --> weniger Rechenaufwand
 	
-	if((timecount<=R_green)&&(R_green!=0)){LED_R_green_set;}else{LED_R_green_reset;}
-	if((timecount<=G_green)&&(G_green!=0)){LED_G_green_set;}else{LED_G_green_reset;}
-	if((timecount<=B_green)&&(B_green!=0)){LED_B_green_set;}else{LED_B_green_reset;}
+	if((timecount<=R_GREEN)&&(R_GREEN!=0)){LED_R_GREEN_SET();}else{LED_R_GREEN_RESET();}
+	if((timecount<=G_GREEN)&&(G_GREEN!=0)){LED_G_GREEN_SET();}else{LED_G_GREEN_RESET();}
+	if((timecount<=B_GREEN)&&(B_GREEN!=0)){LED_B_GREEN_SET();}else{LED_B_GREEN_RESET();}
 		
-	if((timecount<=R_yellow)&&(R_yellow!=0)){LED_R_yellow_set;}else{LED_R_yellow_reset;}
-	if((timecount<=G_yellow)&&(G_yellow!=0)){LED_G_yellow_set;}else{LED_G_yellow_reset;}
-	if((timecount<=B_yellow)&&(B_yellow!=0)){LED_B_yellow_set;}else{LED_B_yellow_reset;}
+	if((timecount<=R_YELLOW)&&(R_YELLOW!=0)){LED_R_YELLOW_SET();}else{LED_R_YELLOW_RESET();}
+	if((timecount<=G_YELLOW)&&(G_YELLOW!=0)){LED_G_YELLOW_SET();}else{LED_G_YELLOW_RESET();}
+	if((timecount<=B_YELLOW)&&(B_YELLOW!=0)){LED_B_YELLOW_SET();}else{LED_B_YELLOW_RESET();}
 	
-	if((timecount<=R_violett)&&(R_violett!=0)){LED_R_violett_set;}else{LED_R_violett_reset;}
-	if((timecount<=G_violett)&&(G_violett!=0)){LED_G_violett_set;}else{LED_G_violett_reset;}
-	if((timecount<=B_violett)&&(B_violett!=0)){LED_B_violett_set;}else{LED_B_violett_reset;}
+	if((timecount<=R_VIOLETT)&&(R_VIOLETT!=0)){LED_R_VIOLETT_SET();}else{LED_R_VIOLETT_RESET();}
+	if((timecount<=G_VIOLETT)&&(G_VIOLETT!=0)){LED_G_VIOLETT_SET();}else{LED_G_VIOLETT_RESET();}
+	if((timecount<=B_VIOLETT)&&(B_VIOLETT!=0)){LED_B_VIOLETT_SET();}else{LED_B_VIOLETT_RESET();}
 	
-	if((timecount<=R_blue)&&(R_blue!=0)){LED_R_blue_set;}else{LED_R_blue_reset;}
-	if((timecount<=G_blue)&&(G_blue!=0)){LED_G_blue_set;}else{LED_G_blue_reset;}
-	if((timecount<=B_blue)&&(B_blue!=0)){LED_B_blue_set;}else{LED_B_blue_reset;}
+	if((timecount<=R_BLUE)&&(R_BLUE!=0)){LED_R_BLUE_SET();}else{LED_R_BLUE_RESET();}
+	if((timecount<=G_BLUE)&&(G_BLUE!=0)){LED_G_BLUE_SET();}else{LED_G_BLUE_RESET();}
+	if((timecount<=B_BLUE)&&(B_BLUE!=0)){LED_B_BLUE_SET();}else{LED_B_BLUE_RESET();}
 	
-	if((timecount<=R_magenta)&&(R_magenta!=0)){LED_R_magenta_set;}else{LED_R_magenta_reset;}
-//	if((timecount<=G_magenta)&&(G_magenta!=0)){LED_G_magenta_set;}else{LED_G_magenta_reset;}
-//	if((timecount<=B_magenta)&&(B_magenta!=0)){LED_B_magenta_set;}else{LED_B_magenta_reset;}//Fehler wenn dieser Pin HIGH ist. Interrupt funktioniert nicht mehr!
+	if((timecount<=R_MAGENTA)&&(R_MAGENTA!=0)){LED_R_MAGENTA_SET();}else{LED_R_MAGENTA_RESET();}
+//	if((timecount<=G_MAGENTA)&&(G_MAGENTA!=0)){LED_G_MAGENTA_SET();}else{LED_G_MAGENTA_RESET();}
+//	if((timecount<=B_MAGENTA)&&(B_MAGENTA!=0)){LED_B_MAGENTA_SET();}else{LED_B_MAGENTA_RESET();}//Fehler wenn dieser Pin HIGH ist. Interrupt funktioniert nicht mehr!
 	
-	if((timecount<=R_red)&&(R_red!=0)){LED_R_red_set;}else{LED_R_red_reset;}
-	if((timecount<=G_red)&&(G_red!=0)){LED_G_red_set;}else{LED_G_red_reset;}
-	if((timecount<=B_red)&&(B_red!=0)){LED_B_red_set;}else{LED_B_red_reset;}
+	if((timecount<=R_RED)&&(R_RED!=0)){LED_R_RED_SET();}else{LED_R_RED_RESET();}
+	if((timecount<=G_RED)&&(G_RED!=0)){LED_G_RED_SET();}else{LED_G_RED_RESET();}
+	if((timecount<=B_RED)&&(B_RED!=0)){LED_B_RED_SET();}else{LED_B_RED_RESET();}
 	
-	if((timecount<=R_aquamarin)&&(R_aquamarin!=0)){LED_R_aquamarin_set;}else{LED_R_aquamarin_reset;}
-	if((timecount<=G_aquamarin)&&(G_aquamarin!=0)){LED_G_aquamarin_set;}else{LED_G_aquamarin_reset;}
-	if((timecount<=B_aquamarin)&&(B_aquamarin!=0)){LED_B_aquamarin_set;}else{LED_B_aquamarin_reset;}
+	if((timecount<=R_AQUAMARIN)&&(R_AQUAMARIN!=0)){LED_R_AQUAMARIN_SET();}else{LED_R_AQUAMARIN_RESET();}
+	if((timecount<=G_AQUAMARIN)&&(G_AQUAMARIN!=0)){LED_G_AQUAMARIN_SET();}else{LED_G_AQUAMARIN_RESET();}
+	if((timecount<=B_AQUAMARIN)&&(B_AQUAMARIN!=0)){LED_B_AQUAMARIN_SET();}else{LED_B_AQUAMARIN_RESET();}
 	
-	if((timecount<=R_orange)&&(R_orange!=0)){LED_R_orange_set;}else{LED_R_orange_reset;}
-	if((timecount<=G_orange)&&(G_orange!=0)){LED_G_orange_set;}else{LED_G_orange_reset;}
-	if((timecount<=B_orange)&&(B_orange!=0)){LED_B_orange_set;}else{LED_B_orange_reset;}
+	if((timecount<=R_ORANGE)&&(R_ORANGE!=0)){LED_R_ORANGE_SET();}else{LED_R_ORANGE_RESET();}
+	if((timecount<=G_ORANGE)&&(G_ORANGE!=0)){LED_G_ORANGE_SET();}else{LED_G_ORANGE_RESET();}
+	if((timecount<=B_ORANGE)&&(B_ORANGE!=0)){LED_B_ORANGE_SET();}else{LED_B_ORANGE_RESET();}
 }
 
 void ledtest(void){
 	
 	testcount++;
 	for(unsigned int i=0; i<400000; i++){
-			LED_R_red_set; 				
-			LED_R_orange_set; 		
-			LED_R_yellow_set;		
-			LED_R_green_set;	
-			LED_R_blue_set;	  
-			LED_R_aquamarin_set; 
-			LED_R_magenta_set; 	
-			LED_R_violett_set;
-			LED_W_down_set;
+			LED_R_RED_SET(); 				
+			LED_R_ORANGE_SET(); 		
+			LED_R_YELLOW_SET();		
+			LED_R_GREEN_SET();	
+			LED_R_BLUE_SET();	  
+			LED_R_AQUAMARIN_SET(); 
+			LED_R_MAGENTA_SET(); 	
+			LED_R_VIOLETT_SET();
+			LED_W_DOWN_SET();
 	}
 	
 	for(unsigned int i=0; i<400000; i++){
-			LED_G_red_set;				
-			LED_G_orange_set; 		
-			LED_G_yellow_set;		
-			LED_G_green_set;	
-			LED_G_blue_set;	  
-			LED_G_aquamarin_set; 
-			LED_G_magenta_set; 	
-			LED_G_violett_set; 	
-			LED_W_middle_set;
+			LED_G_RED_SET();				
+			LED_G_ORANGE_SET(); 		
+			LED_G_YELLOW_SET();		
+			LED_G_GREEN_SET();	
+			LED_G_BLUE_SET();	  
+			LED_G_AQUAMARIN_SET(); 
+			LED_G_MAGENTA_SET(); 	
+			LED_G_VIOLETT_SET(); 	
+			LED_W_MIDDLE_SET();
 	}
 	
 	for(unsigned int i=0; i<400000; i++){
-			LED_B_red_set; 				
-			LED_B_orange_set; 		
-			LED_B_yellow_set;	
-			LED_B_green_set;	
-			LED_B_blue_set;	  
-			LED_B_aquamarin_set; 
-			LED_B_magenta_set;
-			LED_B_violett_set;
-			LED_W_up_set;
+			LED_B_RED_SET(); 				
+			LED_B_ORANGE_SET(); 		
+			LED_B_YELLOW_SET();	
+			LED_B_GREEN_SET();	
+			LED_B_BLUE_SET();	  
+			LED_B_AQUAMARIN_SET(); 
+			LED_B_MAGENTA_SET();
+			LED_B_VIOLETT_SET();
+			LED_W_UP_SET();
 	}
-	LED_CLEAR_reset;
+	LED_CLEAR_RESET();
 }
 
 void select(void){//Funktion fuer die weissen Select LEDs
@@ -189,25 +189,25 @@ void select(void){//Funktion fuer die weissen Select LEDs
 		case HUE:
 			if((button_values[BUTTON_SEL_LUM])&&(!button_values[BUTTON_SEL_HUE])&&(!button_values[BUTTON_SEL_SAT]))sel = LUM;
 			if((button_values[BUTTON_SEL_SAT])&&(!button_values[BUTTON_SEL_HUE])&&(!button_values[BUTTON_SEL_LUM]))sel = SAT;
-			LED_W_up_set;
-			LED_W_middle_reset;
-			LED_W_down_reset;
+			LED_W_UP_SET();
+			LED_W_MIDDLE_RESET();
+			LED_W_DOWN_RESET();
 		break;
 		
 		case SAT:
 			if((button_values[BUTTON_SEL_HUE])&&(!button_values[BUTTON_SEL_LUM])&&(!button_values[BUTTON_SEL_SAT]))sel = HUE;
 			if((button_values[BUTTON_SEL_LUM])&&(!button_values[BUTTON_SEL_HUE])&&(!button_values[BUTTON_SEL_SAT]))sel = LUM;
-			LED_W_up_reset;
-			LED_W_middle_set;
-			LED_W_down_reset;
+			LED_W_UP_RESET();
+			LED_W_MIDDLE_SET();
+			LED_W_DOWN_RESET();
 		break;
 		
 		case LUM:
 			if((button_values[BUTTON_SEL_HUE])&&(!button_values[BUTTON_SEL_LUM])&&(!button_values[BUTTON_SEL_SAT]))sel = HUE;
 			if((button_values[BUTTON_SEL_SAT])&&(!button_values[BUTTON_SEL_HUE])&&(!button_values[BUTTON_SEL_LUM]))sel = SAT;
-			LED_W_up_reset;
-			LED_W_middle_reset;
-			LED_W_down_set;
+			LED_W_UP_RESET();
+			LED_W_MIDDLE_RESET();
+			LED_W_DOWN_SET();
 		break;
 	}*/
 }
@@ -379,7 +379,7 @@ int main(void)
 		}
 		HAL_TIM_Base_Start_IT(&htim3);
 		
-		LED_CLEAR_set;
+		LED_CLEAR_SET();
 		ledpwm();
 		select();
 		sendfunction();

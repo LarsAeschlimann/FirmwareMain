@@ -198,7 +198,7 @@ void TIM3_IRQHandler(void)
 {
   /* USER CODE BEGIN TIM3_IRQn 0 */
 	
-		SHIFT_ENABLE;
+		SHIFT_ENABLE();
 		if(flag){
 			shift_reg_addr_cnt++;
 			SHIFT_CLK_SET();	
@@ -225,7 +225,7 @@ void TIM3_IRQHandler(void)
 		}
 		if(shift_reg_addr_cnt>48){
 			shift_reg_addr_cnt = 0;
-			SHIFT_DISABLE;
+			SHIFT_DISABLE();
 		}
 	
 	
@@ -274,10 +274,10 @@ void TIM6_DAC_IRQHandler(void)
   /* USER CODE BEGIN TIM6_DAC_IRQn 0 */
 		
 		if(cnt==0){
-			LED_CLK_set;	
+			LED_CLK_SET();	
 			cnt = 1;
 		}else{
-			LED_CLK_reset;
+			LED_CLK_RESET();
 			cnt = 0;
 		}
 		
