@@ -26,6 +26,8 @@ firmwaremain\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h
 firmwaremain\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h
 firmwaremain\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h
 firmwaremain\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h
+firmwaremain\main.o: ../Inc/stm32f1xx_it.h
 firmwaremain\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 firmwaremain\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
 firmwaremain\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+firmwaremain\main.o: ../Inc/shiftregister.h

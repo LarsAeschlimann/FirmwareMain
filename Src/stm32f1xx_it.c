@@ -197,22 +197,37 @@ void SysTick_Handler(void)
 void TIM3_IRQHandler(void)
 {
   /* USER CODE BEGIN TIM3_IRQn 0 */
+	
 		SHIFT_ENABLE;
 		if(flag){
-			i++;
-			SHIFT_CLK_set;	
-			buttonstring[i] = SHIFT_DATA;
+			shift_reg_addr_cnt++;
+			SHIFT_CLK_SET();	
+			char shift_data_new = SHIFT_DATA();
+			if(button_get_active_state(shift_reg_addr_cnt) == 0){ //button low activ?
+				shift_data_new = !shift_data_new; //invert sd data
+			}
+			
+			if((shift_reg_values[shift_reg_addr_cnt] == 0)&&(shift_data_new))
+			{
+				shift_reg_values[shift_reg_addr_cnt] = 1;
+			}
+			else
+			{
+				shift_reg_values[shift_reg_addr_cnt] = 0;
+			}
+			
 			flag=0;
 		}
 		else
 		{
-			SHIFT_CLK_reset;
+			SHIFT_CLK_RESET();
 			flag=1;
 		}
-		if(i>48){
-			i = 0;
+		if(shift_reg_addr_cnt>48){
+			shift_reg_addr_cnt = 0;
 			SHIFT_DISABLE;
 		}
+	
 	
   /* USER CODE END TIM3_IRQn 0 */
   HAL_TIM_IRQHandler(&htim3);

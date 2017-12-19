@@ -461,11 +461,6 @@
           <GroupName>Application/User</GroupName>
           <Files>
             <File>
-              <FileName>main.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>../Src/main.c</FilePath>
-            </File>
-            <File>
               <FileName>stm32f1xx_it.c</FileName>
               <FileType>1</FileType>
               <FilePath>../Src/stm32f1xx_it.c</FilePath>
@@ -484,6 +479,46 @@
               <FileName>startup_stm32f100xe.s</FileName>
               <FileType>2</FileType>
               <FilePath>startup_stm32f100xe.s</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Source</GroupName>
+          <Files>
+            <File>
+              <FileName>main.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>../Src/main.c</FilePath>
+            </File>
+            <File>
+              <FileName>rgb_led.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Src\rgb_led.c</FilePath>
+            </File>
+            <File>
+              <FileName>shiftregister.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Src\shiftregister.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Include</GroupName>
+          <Files>
+            <File>
+              <FileName>rgb_led.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Inc\rgb_led.h</FilePath>
+            </File>
+            <File>
+              <FileName>shiftregister.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Inc\shiftregister.h</FilePath>
+            </File>
+            <File>
+              <FileName>main.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Inc\main.h</FilePath>
             </File>
           </Files>
         </Group>

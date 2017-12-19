@@ -56,17 +56,22 @@
 
 /* USER CODE BEGIN Private defines */
 
+//shiftreg
+extern volatile char shift_reg_values[];
+extern volatile unsigned int shift_reg_addr_cnt;
+
 extern volatile unsigned int timecount;
 extern volatile unsigned int cnt;
 extern volatile char flag;
-extern volatile char buttonstring[];
-extern volatile unsigned int i;
+
+
 extern volatile char sendflag;
+char button_get_active_state(char encoder);
 
 #define BUFFERSIZE 48
 #define STRINGLENGTH 8
 
-#define NUMBERBUTTONS 48
+
 
 enum select{HUE,SAT,LUM};
 
@@ -173,12 +178,12 @@ enum select{HUE,SAT,LUM};
 #define LED_DEBUG1_set				HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_SET);
 #define LED_DEBUG1_reset 			HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_RESET);
 #define LED_DEBUG2_set	 			HAL_GPIO_WritePin(GPIOB, GPIO_PIN_1, GPIO_PIN_SET);
-#define LED_DEBUG2_reset 			HAL_GPIO_WritePin(GPIOB, GPIO_PIN_1, GPIO_PIN_RESET);
+#define LED_DEBUG2_SET() 			HAL_GPIO_WritePin(GPIOB, GPIO_PIN_1, GPIO_PIN_RESET)
 
-#define SHIFT_CLK_set 				HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET);
-#define SHIFT_CLK_reset 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);
+#define SHIFT_CLK_SET() 				HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET)
+#define SHIFT_CLK_RESET() 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET)
 
-#define SHIFT_DATA 						HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_6);
+#define SHIFT_DATA() 					HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_6)
 
 #define SHIFT_ENABLE 					HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_SET);
 #define SHIFT_DISABLE 				HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_RESET);
@@ -226,6 +231,7 @@ enum select{HUE,SAT,LUM};
 #define BUTTON_EXPOSURE		13
 #define BUTTON_LIGHTS			10
 #define BUTTON_CROP				20
+
 
 
 /* USER CODE END Private defines */
